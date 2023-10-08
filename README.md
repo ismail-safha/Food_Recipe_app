@@ -9,3 +9,5 @@
 - RecipeCard API
 
 - fix image fetching slow loading
+
+-2 Detail Screen
