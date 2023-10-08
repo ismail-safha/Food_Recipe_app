@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image, TextInput } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   widthPercentageToDP as wp,
@@ -8,9 +8,48 @@ import {
 
 import { BellIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import Categories from "../components/categories";
+import axios from "axios";
+import Recipes from "../components/recipes";
 
 export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState("Beef");
+  const [categories, setCategories] = useState([]);
+  const [meals, setMeals] = useState([]);
+
+  useEffect(() => {
+    getCategories();
+    getRecipes();
+  }, []);
+
+  // GET CATEGORIES
+  const getCategories = async () => {
+    try {
+      const res = await axios.get(
+        "https://themealdb.com/api/json/v1/1/categories.php"
+      );
+
+      if (res && res.data) {
+        setCategories(res.data.categories);
+      }
+    } catch (error) {
+      console.log("error: ", error.message);
+    }
+  };
+  // get recipes
+
+  const getRecipes = async (category = "Beef") => {
+    try {
+      const response = await axios.get(
+        `https://themealdb.com/api/json/v1/1/filter.php?c=${category}`
+      );
+      if (response && response.data) {
+        setMeals(response.data.meals);
+      }
+    } catch (err) {
+      console.log("error: ", err.message);
+    }
+  };
+
   return (
     <View className="flex-1 bg-white">
       <StatusBar style="dark" />
@@ -66,10 +105,19 @@ export default function HomeScreen() {
 
       {/* categories */}
       <View>
-        <Categories
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-        />
+        {categories.length > 0 && (
+          <Categories
+            categories={categories}
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
+        )}
+      </View>
+
+      {/* recipes */}
+
+      <View>
+        <Recipes meals={meals} categories={categories} />
       </View>
     </View>
   );

@@ -7,7 +7,11 @@ import React from "react";
 import { categoryData } from "../constants";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
-export default function Categories({ activeCategory, setActiveCategory }) {
+export default function Categories({
+  activeCategory,
+  setActiveCategory,
+  categories,
+}) {
   return (
     <Animated.View entering={FadeInDown.duration(500).springify()}>
       <ScrollView
@@ -16,15 +20,15 @@ export default function Categories({ activeCategory, setActiveCategory }) {
         className="space-x-4"
         contentContainerStyle={{ paddingHorizontal: 15 }}
       >
-        {categoryData.map((cat, index) => {
-          let isActive = cat.name == activeCategory;
+        {categories.map((cat, index) => {
+          let isActive = cat.strCategory == activeCategory;
           let activeButtonClass = isActive ? " bg-amber-400" : " bg-black/10";
 
           return (
             <TouchableOpacity
               key={index}
               className="flex items-center space-y-1"
-              onPress={() => handleChangeCategory(cat.name)}
+              onPress={() => handleChangeCategory(cat.strCategory)}
             >
               <View className={"rounded-full p-[6px] " + activeButtonClass}>
                 <Image
