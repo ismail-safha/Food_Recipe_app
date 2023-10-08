@@ -7,6 +7,7 @@ import {
 } from "react-native-responsive-screen";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import Loading from "./loading";
+import { CachedImage } from "../helpers/image";
 
 export default function Recipes({ meals, categories }) {
   return (
@@ -56,7 +57,7 @@ const RecipeCard = ({ item, index }) => {
         className="flex justify-center mb-4 space-y-1"
         onPress={() => navigation.navigate("RecipeDetail", { ...item })}
       >
-        <Image
+        {/* <Image
           source={{ uri: item.strMealThumb }}
           style={{
             width: "100%",
@@ -64,6 +65,17 @@ const RecipeCard = ({ item, index }) => {
             borderRadius: 35,
           }}
           className="bg-black/5"
+        /> */}
+
+        <CachedImage
+          uri={item.strMealThumb}
+          style={{
+            width: "100%",
+            height: index % 3 == 0 ? hp(25) : hp(35),
+            borderRadius: 35,
+          }}
+          className="bg-black/5"
+          sharedTransitionTag={item.strMeal}
         />
 
         <Text

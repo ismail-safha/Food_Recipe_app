@@ -7,3 +7,5 @@
 - categories use API
 
 - RecipeCard API
+
+- fix image fetching slow loading
