@@ -9,7 +9,7 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 
 export default function Categories({
   activeCategory,
-  setActiveCategory,
+  handleChangeCategory,
   categories,
 }) {
   return (

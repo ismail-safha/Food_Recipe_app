@@ -1,10 +1,10 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, ActivityIndicator } from "react-native";
+import React from "react";
 
-export default function loading() {
+export default function Loading(props) {
   return (
-    <View>
-      <Text>loading</Text>
+    <View className="flex-1 flex justify-center items-center">
+      <ActivityIndicator {...props} />
     </View>
-  )
+  );
 }

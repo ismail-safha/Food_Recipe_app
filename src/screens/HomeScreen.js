@@ -21,6 +21,12 @@ export default function HomeScreen() {
     getRecipes();
   }, []);
 
+  const handleChangeCategory = (category) => {
+    getRecipes(category);
+    setActiveCategory(category);
+    setMeals([]);
+  };
+
   // GET CATEGORIES
   const getCategories = async () => {
     try {
@@ -109,7 +115,7 @@ export default function HomeScreen() {
           <Categories
             categories={categories}
             activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
+            handleChangeCategory={handleChangeCategory}
           />
         )}
       </View>
